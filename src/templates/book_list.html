@@ -1,0 +1,62 @@
+<!-- templates/book_list.html -->
+{% extends 'base.html' %}
+
+{% block title %}All Books{% endblock %}
+
+{% block content %}
+
+<!-- Page heading -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2>📖 Book List</h2>
+  <!-- btn btn-success — green Bootstrap button -->
+  <a href="{% url 'books:book_add' %}" class="btn btn-success">+ Add New Book</a>
+</div>
+
+{% if books %}
+
+<!-- Bootstrap Table:
+     table-striped  — alternating row colors
+     table-hover    — row highlight on hover
+     table-bordered — borders between cells -->
+<div class="table-responsive">
+  <table class="table table-striped table-hover table-bordered align-middle">
+    <thead class="table-dark">
+    <tr>
+      <th>#</th>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Genre</th>
+      <th>Year</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for book in books %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td><strong>{{ book.title }}</strong></td>
+      <td>{{ book.author }}</td>
+      <td>
+        <!-- badge — small Bootstrap label -->
+        <span class="badge bg-secondary">{{ book.genre }}</span>
+      </td>
+      <td>{{ book.year }}</td>
+      <td>
+        <a href="{% url 'books:book_detail' book.pk %}" class="btn btn-sm btn-primary">Details</a>
+      </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% else %}
+
+<!-- alert alert-info — Bootstrap informational message -->
+<div class="alert alert-info" role="alert">
+  📭 No books yet. Be the first to add one!
+</div>
+
+{% endif %}
+
+{% endblock %}
