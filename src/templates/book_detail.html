@@ -1,0 +1,40 @@
+<!-- templates/book_detail.html -->
+{% extends 'base.html' %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block content %}
+
+<!-- Bootstrap Card:
+     card         — container
+     card-header  — top section
+     card-body    — main section
+     card-footer  — bottom section -->
+<div class="card shadow-sm">
+  <div class="card-header bg-dark text-white">
+    <h4 class="mb-0">{{ book.title }}</h4>
+  </div>
+  <div class="card-body">
+    <!-- Bootstrap Row + Col for two-column layout -->
+    <div class="row">
+      <div class="col-md-6">
+        <p><strong>Author:</strong> {{ book.author }}</p>
+        <p><strong>Genre:</strong>
+          <span class="badge bg-secondary">{{ book.genre }}</span>
+        </p>
+        <p><strong>Year:</strong> {{ book.year }}</p>
+      </div>
+      <div class="col-md-6">
+        {% if book.description %}
+        <p><strong>Description:</strong></p>
+        <p class="text-muted">{{ book.description }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="card-footer d-flex gap-2">
+    <a href="{% url 'books:book_list' %}" class="btn btn-outline-secondary">← Back to List</a>
+  </div>
+</div>
+
+{% endblock %}
